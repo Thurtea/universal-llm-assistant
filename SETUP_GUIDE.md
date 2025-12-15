@@ -1,23 +1,23 @@
 # Universal Knowledge Assistant - Setup Guide
 
-## 🚀 Quick Start (First-Time Setup)
+##  Quick Start (First-Time Setup)
 
 ### One-Click Setup
 Just double-click **`launch_setup.bat`** or **`first_run_setup.pyw`** to start the guided setup wizard!
 
 The wizard will:
-1. ✅ Check if Ollama is installed and running
-2. ✅ Install Python dependencies automatically
-3. ✅ Download recommended AI model (if needed)
-4. ✅ Configure your knowledge base path
-5. ✅ Create desktop shortcut
-6. ✅ Launch the application
+1.  Check if Ollama is installed and running
+2.  Install Python dependencies automatically
+3.  Download recommended AI model (if needed)
+4.  Configure your knowledge base path
+5.  Create desktop shortcut
+6.  Launch the application
 
 **Setup takes less than 2 minutes!**
 
 ---
 
-## 📋 Prerequisites
+##  Prerequisites
 
 ### Required
 - **Python 3.8+** - [Download here](https://www.python.org/downloads/)
@@ -34,7 +34,7 @@ The setup wizard will install these automatically:
 
 ---
 
-## 🎯 User Journey
+##  User Journey
 
 ### Step 1: Clone Repository
 ```bash
@@ -67,12 +67,12 @@ cd universal-knowledge-assistant
 
 #### Screen 4: Use Cases
 Explore example configurations:
-- 📚 Research Library
-- ⚖️ Legal Documents
-- 🏥 Medical Records
-- 💻 Code Development
-- 💼 Business Knowledge
-- 📖 Personal Library
+-  Research Library
+-  Legal Documents
+-  Medical Records
+-  Code Development
+-  Business Knowledge
+-  Personal Library
 
 #### Screen 5: Finalization
 - Review configuration summary
@@ -88,7 +88,7 @@ After setup completes, you'll find:
 
 ---
 
-## 🔧 Manual Setup (Advanced)
+##  Manual Setup (Advanced)
 
 If you prefer manual configuration:
 
@@ -126,33 +126,33 @@ If you prefer manual configuration:
 
 ---
 
-## 🎨 File Structure
+##  File Structure
 
 ```
 universal-knowledge-assistant/
-├── first_run_setup.pyw          # Setup wizard GUI (MAIN ENTRY POINT)
-├── setup_wizard.py              # Backend logic for wizard
-├── launch_setup.bat             # Convenience launcher for wizard
-├── launch_assistant.bat         # Main app launcher (checks for setup)
-├── launch_assistant_gui.pyw     # GUI app (no console)
-├── gui_assistant.py             # Main application
-├── assistant_core.py            # Core assistant logic
-├── indexed_assistant.py         # Fast indexed search
-├── index_codebase.py            # Index builder
-├── config.yaml.example          # Config template
-├── config.yaml                  # User config (created by wizard)
-├── .setup_complete              # Setup marker (created by wizard)
-├── requirements.txt             # Python dependencies
-└── assets/
-    └── universal-knowledge/     # Logo and icons
-        ├── LLM-Assistant-Logo.png
-        ├── favicon.ico
-        └── android-chrome-*.png
+ first_run_setup.pyw          # Setup wizard GUI (MAIN ENTRY POINT)
+ setup_wizard.py              # Backend logic for wizard
+ launch_setup.bat             # Convenience launcher for wizard
+ launch_assistant.bat         # Main app launcher (checks for setup)
+ launch_assistant_gui.pyw     # GUI app (no console)
+ gui_assistant.py             # Main application
+ assistant_core.py            # Core assistant logic
+ indexed_assistant.py         # Fast indexed search
+ index_codebase.py            # Index builder
+ config.yaml.example          # Config template
+ config.yaml                  # User config (created by wizard)
+ .setup_complete              # Setup marker (created by wizard)
+ requirements.txt             # Python dependencies
+ assets/
+     universal-knowledge/     # Logo and icons
+         LLM-Assistant-Logo.png
+         favicon.ico
+         android-chrome-*.png
 ```
 
 ---
 
-## 🔄 Reconfiguring
+##  Reconfiguring
 
 To change settings after initial setup:
 
@@ -174,7 +174,7 @@ launch_assistant.bat
 
 ---
 
-## 🛠️ Troubleshooting
+##  Troubleshooting
 
 ### "Ollama not running"
 1. Start Ollama: Open Ollama app or run `ollama serve`
@@ -205,21 +205,21 @@ launch_assistant.bat
 
 ---
 
-## 📊 Recommended Models
+##  Recommended Models
 
 | Model | Size | RAM | Use Case |
 |-------|------|-----|----------|
 | `qwen2.5-coder:1.5b` | 1.5GB | ~1GB | Fast, simple queries |
-| `qwen2.5-coder:3b` ⭐ | 3GB | ~2GB | **Balanced (recommended)** |
+| `qwen2.5-coder:3b`  | 3GB | ~2GB | **Balanced (recommended)** |
 | `qwen2.5-coder:7b` | 7GB | ~4GB | Complex, detailed analysis |
 | `llama3.2:3b` | 3GB | ~2GB | General knowledge |
 | `mistral:7b` | 7GB | ~4GB | Creative writing |
 
-⭐ **Recommended**: `qwen2.5-coder:3b` - Best balance of speed and quality
+ **Recommended**: `qwen2.5-coder:3b` - Best balance of speed and quality
 
 ---
 
-## 🎓 Use Case Examples
+##  Use Case Examples
 
 ### Research Library
 ```yaml
@@ -247,22 +247,22 @@ Query: "Search for non-compete clauses"
 
 ---
 
-## 🔒 Privacy & Security
+##  Privacy & Security
 
-- ✅ **100% Local** - No data sent to cloud
-- ✅ **Offline AI** - Runs entirely on your machine
-- ✅ **HIPAA-safe** - Suitable for medical records
-- ✅ **No telemetry** - Zero tracking or analytics
+-  **100% Local** - No data sent to cloud
+-  **Offline AI** - Runs entirely on your machine
+-  **HIPAA-safe** - Suitable for medical records
+-  **No telemetry** - Zero tracking or analytics
 
 ---
 
-## 📝 License
+##  License
 
 See [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🤝 Support
+##  Support
 
 - Open an issue on GitHub
 - Check troubleshooting section above
@@ -270,4 +270,4 @@ See [LICENSE](LICENSE) file for details.
 
 ---
 
-**Enjoy your Universal Knowledge Assistant! 🎉**
+**Enjoy your Universal Knowledge Assistant! **

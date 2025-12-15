@@ -2,18 +2,18 @@
 
 Thank you for your interest in contributing! We welcome contributions from the community to make this project even better.
 
-## 🤝 How to Contribute
+##  How to Contribute
 
 ### Ways You Can Help
 
-- 🐛 **Report Bugs** - Found an issue? Let us know!
-- 💡 **Suggest Features** - Have an idea? We'd love to hear it!
-- 📚 **Improve Documentation** - Help make our docs clearer
-- 🔧 **Submit Code** - Fix bugs or add features
-- ⭐ **Star the Repo** - Show your support!
-- 💬 **Answer Questions** - Help other users in Discussions
+-  **Report Bugs** - Found an issue? Let us know!
+-  **Suggest Features** - Have an idea? We'd love to hear it!
+-  **Improve Documentation** - Help make our docs clearer
+-  **Submit Code** - Fix bugs or add features
+-  **Star the Repo** - Show your support!
+-  **Answer Questions** - Help other users in Discussions
 
-## 🐛 Reporting Bugs
+##  Reporting Bugs
 
 ### Before Reporting
 1. **Search existing issues** - Check if someone already reported it
@@ -50,7 +50,7 @@ If applicable, add screenshots
 
 [Create Bug Report](https://github.com/yourusername/universal-knowledge-assistant/issues/new?labels=bug)
 
-## 💡 Suggesting Features
+##  Suggesting Features
 
 We love new ideas! When suggesting features:
 
@@ -76,7 +76,7 @@ Real-world scenario where this helps
 
 [Suggest a Feature](https://github.com/yourusername/universal-knowledge-assistant/issues/new?labels=enhancement)
 
-## 🔧 Pull Requests
+##  Pull Requests
 
 ### Getting Started
 
@@ -211,7 +211,7 @@ If applicable, add screenshots
 - [ ] Tested locally
 ```
 
-## 📚 Documentation
+##  Documentation
 
 ### Areas to Improve
 - README.md - Main project documentation
@@ -226,7 +226,7 @@ If applicable, add screenshots
 - **Screenshots** - Visual aids help
 - **Up-to-date** - Verify accuracy
 
-## 🎨 UI/UX Contributions
+##  UI/UX Contributions
 
 ### Design Guidelines
 - **Dark theme consistency** - Match existing color palette
@@ -248,27 +248,27 @@ WARNING_COLOR = "#facc15"
 ERROR_COLOR = "#f97373"
 ```
 
-## 🌍 Internationalization
+##  Internationalization
 
 Future goal: Support multiple languages
 - Keep strings separate from logic
 - Use clear English in comments
 - Consider RTL language support
 
-## 📋 Project Structure
+##  Project Structure
 
 Understanding the codebase:
 
 ```
 universal-knowledge-assistant/
-├── first_run_setup.pyw      # Setup wizard GUI
-├── setup_wizard.py          # Setup backend logic
-├── gui_assistant.py         # Main application GUI
-├── assistant_core.py        # Core LLM interaction
-├── indexed_assistant.py     # ChromaDB vector search
-├── index_codebase.py        # Indexing script
-├── config.yaml.example      # Configuration template
-└── assets/                  # Images and icons
+ first_run_setup.pyw      # Setup wizard GUI
+ setup_wizard.py          # Setup backend logic
+ gui_assistant.py         # Main application GUI
+ assistant_core.py        # Core LLM interaction
+ indexed_assistant.py     # ChromaDB vector search
+ index_codebase.py        # Indexing script
+ config.yaml.example      # Configuration template
+ assets/                  # Images and icons
 ```
 
 ### Key Files to Know
@@ -278,7 +278,7 @@ universal-knowledge-assistant/
 - **setup_wizard.py** - Setup wizard backend (dependency checks, config generation)
 - **first_run_setup.pyw** - Setup wizard GUI screens
 
-## 🚀 Release Process
+##  Release Process
 
 For maintainers:
 
@@ -289,27 +289,27 @@ For maintainers:
 5. **Push tag**: `git push origin v1.0.0`
 6. **Create GitHub Release** with notes
 
-## ❓ Questions?
+##  Questions?
 
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/yourusername/universal-knowledge-assistant/discussions)
-- 🐛 **Issues**: [GitHub Issues](https://github.com/yourusername/universal-knowledge-assistant/issues)
-- 📧 **Email**: For private inquiries
+-  **Discussions**: [GitHub Discussions](https://github.com/yourusername/universal-knowledge-assistant/discussions)
+-  **Issues**: [GitHub Issues](https://github.com/yourusername/universal-knowledge-assistant/issues)
+-  **Email**: For private inquiries
 
-## 📜 Code of Conduct
+##  Code of Conduct
 
 ### Our Standards
 
 **Be:**
-- ✅ Respectful and inclusive
-- ✅ Constructive with feedback
-- ✅ Patient with newcomers
-- ✅ Professional in communication
+-  Respectful and inclusive
+-  Constructive with feedback
+-  Patient with newcomers
+-  Professional in communication
 
 **Don't:**
-- ❌ Harass or discriminate
-- ❌ Use offensive language
-- ❌ Share others' private info
-- ❌ Engage in trolling
+-  Harass or discriminate
+-  Use offensive language
+-  Share others' private info
+-  Engage in trolling
 
 ### Enforcement
 Violations may result in:
@@ -319,20 +319,20 @@ Violations may result in:
 
 Report issues to: conduct@yourproject.com
 
-## 🙏 Recognition
+##  Recognition
 
 Contributors are recognized:
 - In release notes
 - In CONTRIBUTORS.md (if created)
 - On the GitHub contributors page
 
-## 📄 License
+##  License
 
 By contributing, you agree that your contributions will be licensed under the MIT License.
 
 ---
 
-**Thank you for making Universal Knowledge Assistant better!** 🎉
+**Thank you for making Universal Knowledge Assistant better!** 
 
 We appreciate every contribution, whether it's:
 - A typo fix
@@ -340,4 +340,4 @@ We appreciate every contribution, whether it's:
 - A feature suggestion
 - A major new feature
 
-Every bit helps make this project more useful for everyone! ❤️
+Every bit helps make this project more useful for everyone! 

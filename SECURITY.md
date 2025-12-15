@@ -1,22 +1,22 @@
 # Security Policy
 
-## 🔒 Our Commitment to Security
+##  Our Commitment to Security
 
 Universal Knowledge Assistant is designed with privacy and security as core principles. All processing happens locally on your machine, with no data transmitted to external servers.
 
-## 🛡️ Security Features
+##  Security Features
 
 ### Local-First Architecture
-- ✅ **No Cloud Services** - All AI processing occurs on your local machine
-- ✅ **No API Keys Required** - No external service authentication needed
-- ✅ **No Data Transmission** - Your data never leaves your computer
-- ✅ **No Telemetry** - Zero tracking or analytics
+-  **No Cloud Services** - All AI processing occurs on your local machine
+-  **No API Keys Required** - No external service authentication needed
+-  **No Data Transmission** - Your data never leaves your computer
+-  **No Telemetry** - Zero tracking or analytics
 
 ### Data Privacy
-- ✅ **HIPAA-Safe** - Suitable for sensitive medical records
-- ✅ **Confidential Documents** - Safe for legal, financial, or proprietary data
-- ✅ **Offline Operation** - Works without internet connection (after initial setup)
-- ✅ **User-Controlled Storage** - All data stored in directories you specify
+-  **HIPAA-Safe** - Suitable for sensitive medical records
+-  **Confidential Documents** - Safe for legal, financial, or proprietary data
+-  **Offline Operation** - Works without internet connection (after initial setup)
+-  **User-Controlled Storage** - All data stored in directories you specify
 
 ### Dependencies Security
 We use well-established, actively maintained open-source libraries:
@@ -25,7 +25,7 @@ We use well-established, actively maintained open-source libraries:
 - CustomTkinter (GUI framework)
 - Official Python packages from PyPI
 
-## 🐛 Reporting Security Vulnerabilities
+##  Reporting Security Vulnerabilities
 
 We take security issues seriously. If you discover a security vulnerability, please report it responsibly:
 
@@ -36,20 +36,20 @@ We take security issues seriously. If you discover a security vulnerability, ple
 4. **Allow** us reasonable time to address the issue before public disclosure
 
 ### **Please DON'T:**
-- ❌ Open public GitHub issues for security vulnerabilities
-- ❌ Disclose the vulnerability publicly before we've had a chance to fix it
-- ❌ Exploit the vulnerability beyond what's necessary for demonstration
+-  Open public GitHub issues for security vulnerabilities
+-  Disclose the vulnerability publicly before we've had a chance to fix it
+-  Exploit the vulnerability beyond what's necessary for demonstration
 
-## 📋 Supported Versions
+##  Supported Versions
 
 We provide security updates for the following versions:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.x.x   | ✅ Yes             |
-| < 1.0   | ❌ No (beta)       |
+| 1.x.x   |  Yes             |
+| < 1.0   |  No (beta)       |
 
-## 🔐 Security Best Practices
+##  Security Best Practices
 
 ### For Users:
 
@@ -93,7 +93,7 @@ We provide security updates for the following versions:
    bandit -r .  # Install with: pip install bandit
    ```
 
-## 🚨 Known Limitations
+##  Known Limitations
 
 1. **Local Model Security**
    - AI models from Ollama are run with your user permissions
@@ -109,7 +109,7 @@ We provide security updates for the following versions:
    - Regularly update to receive security patches
    - Consider using virtual environments to isolate dependencies
 
-## 📝 Security Changelog
+##  Security Changelog
 
 ### Version 1.0.0 (2025-12)
 - Initial release with local-first architecture
@@ -117,11 +117,11 @@ We provide security updates for the following versions:
 - Secure setup wizard
 - Protected configuration files
 
-## 🤝 Acknowledgments
+##  Acknowledgments
 
 We appreciate responsible security researchers who help keep our users safe. Security contributors will be acknowledged (with permission) in our release notes.
 
-## 📧 Contact
+##  Contact
 
 For security-related inquiries:
 - **Email**: security@yourproject.com (replace with your contact)
@@ -130,4 +130,4 @@ For security-related inquiries:
 
 ---
 
-**Thank you for helping keep Universal Knowledge Assistant secure!** 🔒
+**Thank you for helping keep Universal Knowledge Assistant secure!** 

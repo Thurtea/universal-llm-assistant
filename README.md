@@ -17,7 +17,7 @@
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### **Zero-Terminal Setup (Recommended)**
 
@@ -35,53 +35,53 @@
 
 **That's it!** No terminal commands, no manual config editing, no confusion.
 
-> 📖 **New to this?** See [QUICK_START.md](QUICK_START.md) for the simplest instructions  
-> 📚 **Need details?** See [SETUP_GUIDE.md](SETUP_GUIDE.md) for comprehensive documentation
+>  **New to this?** See [QUICK_START.md](QUICK_START.md) for the simplest instructions  
+>  **Need details?** See [SETUP_GUIDE.md](SETUP_GUIDE.md) for comprehensive documentation
 
 ---
 
-## ✨ Features
+##  Features
 
-### 🔒 **Privacy & Security**
-- ✅ **100% Local Processing** - All AI runs on your machine (no cloud, no API keys)
-- ✅ **HIPAA-Safe** - Suitable for medical records, legal docs, confidential data
-- ✅ **No Telemetry** - Zero tracking, zero analytics, zero data collection
+###  **Privacy & Security**
+-  **100% Local Processing** - All AI runs on your machine (no cloud, no API keys)
+-  **HIPAA-Safe** - Suitable for medical records, legal docs, confidential data
+-  **No Telemetry** - Zero tracking, zero analytics, zero data collection
 
-### 🤖 **AI-Powered Search**
-- ✅ **Natural Language Queries** - Ask questions like "Find research on neural networks from 2023"
-- ✅ **Semantic Search** - ChromaDB vector database for intelligent document retrieval
-- ✅ **Multiple AI Models** - Switch between fast (1.5B), balanced (3B), or powerful (7B) models
-- ✅ **Context-Aware** - Add specific files for targeted deep-dive analysis
+###  **AI-Powered Search**
+-  **Natural Language Queries** - Ask questions like "Find research on neural networks from 2023"
+-  **Semantic Search** - ChromaDB vector database for intelligent document retrieval
+-  **Multiple AI Models** - Switch between fast (1.5B), balanced (3B), or powerful (7B) models
+-  **Context-Aware** - Add specific files for targeted deep-dive analysis
 
-### 🎨 **Professional Desktop App**
-- ✅ **Modern Dark UI** - Clean, minimal interface inspired by professional tools
-- ✅ **Split-Panel Design** - Side-by-side query and response display
-- ✅ **One-Click Setup** - Guided wizard handles everything automatically
-- ✅ **Desktop Shortcut** - Launch like any native Windows application
-- ✅ **Copy/Paste Support** - Full keyboard shortcuts and context menus
+###  **Professional Desktop App**
+-  **Modern Dark UI** - Clean, minimal interface inspired by professional tools
+-  **Split-Panel Design** - Side-by-side query and response display
+-  **One-Click Setup** - Guided wizard handles everything automatically
+-  **Desktop Shortcut** - Launch like any native Windows application
+-  **Copy/Paste Support** - Full keyboard shortcuts and context menus
 
-### ⚡ **Performance**
-- ✅ **Fast Indexing** - ChromaDB creates searchable embeddings of your knowledge base
-- ✅ **10-100x Faster Queries** - Vector search vs. linear file scanning
-- ✅ **Multi-Format Support** - PDFs, code, text, markdown, and more
-- ✅ **Efficient Memory** - Models from 1GB to 4GB RAM usage
+###  **Performance**
+-  **Fast Indexing** - ChromaDB creates searchable embeddings of your knowledge base
+-  **10-100x Faster Queries** - Vector search vs. linear file scanning
+-  **Multi-Format Support** - PDFs, code, text, markdown, and more
+-  **Efficient Memory** - Models from 1GB to 4GB RAM usage
 
 ---
 
-## 🎯 Use Cases
+##  Use Cases
 
 | Use Case | Description | Example Query |
 |----------|-------------|---------------|
-| 📚 **Research Library** | Index academic papers, PDFs, notes | "What studies mention climate change mitigation?" |
-| ⚖️ **Legal Documents** | Search contracts, case files, briefs | "Find all non-compete clauses in contracts" |
-| 🏥 **Medical Records** | Query patient notes (HIPAA-safe) | "Show patient history for diabetes cases" |
-| 💻 **Code Development** | Index codebases, APIs, design docs | "How does the authentication system work?" |
-| 💼 **Business Knowledge** | Search meeting notes, reports, docs | "What were Q3 revenue projections?" |
-| 📖 **Personal Library** | Books, articles, personal notes | "Find notes about productivity techniques" |
+|  **Research Library** | Index academic papers, PDFs, notes | "What studies mention climate change mitigation?" |
+|  **Legal Documents** | Search contracts, case files, briefs | "Find all non-compete clauses in contracts" |
+|  **Medical Records** | Query patient notes (HIPAA-safe) | "Show patient history for diabetes cases" |
+|  **Code Development** | Index codebases, APIs, design docs | "How does the authentication system work?" |
+|  **Business Knowledge** | Search meeting notes, reports, docs | "What were Q3 revenue projections?" |
+|  **Personal Library** | Books, articles, personal notes | "Find notes about productivity techniques" |
 
 ---
 
-## 📋 Requirements
+##  Requirements
 
 ### **System Requirements**
 - **Python 3.8+** - [Download](https://www.python.org/downloads/)
@@ -102,30 +102,30 @@ sentence-transformers>=2.2.0
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 universal-knowledge-assistant/
-├── first_run_setup.pyw          # 🚀 START HERE - Setup wizard
-├── setup_wizard.py              # Backend logic for setup
-├── launch_assistant.bat         # Main app launcher
-├── gui_assistant.py             # GUI application
-├── assistant_core.py            # Core AI logic
-├── indexed_assistant.py         # Fast vector search
-├── index_codebase.py            # Knowledge base indexer
-├── config.yaml.example          # Configuration template
-├── requirements.txt             # Python dependencies
-├── QUICK_START.md               # 1-page quick reference
-├── SETUP_GUIDE.md               # Comprehensive setup docs
-└── assets/                      # Logo and icons
-    └── universal-knowledge/
-        ├── LLM-Assistant-Logo.png
-        └── favicon.ico
+ first_run_setup.pyw          #  START HERE - Setup wizard
+ setup_wizard.py              # Backend logic for setup
+ launch_assistant.bat         # Main app launcher
+ gui_assistant.py             # GUI application
+ assistant_core.py            # Core AI logic
+ indexed_assistant.py         # Fast vector search
+ index_codebase.py            # Knowledge base indexer
+ config.yaml.example          # Configuration template
+ requirements.txt             # Python dependencies
+ QUICK_START.md               # 1-page quick reference
+ SETUP_GUIDE.md               # Comprehensive setup docs
+ assets/                      # Logo and icons
+     universal-knowledge/
+         LLM-Assistant-Logo.png
+         favicon.ico
 ```
 
 ---
 
-## 🛠️ Advanced Usage
+##  Advanced Usage
 
 ### **Manual Configuration**
 
@@ -182,20 +182,20 @@ This creates a `chroma_db/` directory with semantic embeddings. The GUI automati
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 **Ways to contribute:**
-- 🐛 Report bugs via [GitHub Issues](https://github.com/yourusername/universal-knowledge-assistant/issues)
-- 💡 Suggest features or improvements
-- 🔧 Submit pull requests
-- 📚 Improve documentation
-- ⭐ Star the repo if you find it useful!
+-  Report bugs via [GitHub Issues](https://github.com/yourusername/universal-knowledge-assistant/issues)
+-  Suggest features or improvements
+-  Submit pull requests
+-  Improve documentation
+-  Star the repo if you find it useful!
 
 ---
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
@@ -203,7 +203,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🙏 Credits & Acknowledgments
+##  Credits & Acknowledgments
 
 Built with exceptional open-source tools:
 
@@ -215,25 +215,25 @@ Built with exceptional open-source tools:
 
 ---
 
-## 🔒 Security
+##  Security
 
 Please see [SECURITY.md](SECURITY.md) for our security policy and how to report vulnerabilities.
 
 ---
 
-## 📞 Support
+##  Support
 
-- 📖 **Documentation**: [SETUP_GUIDE.md](SETUP_GUIDE.md)
-- 🐛 **Issues**: [GitHub Issues](https://github.com/yourusername/universal-knowledge-assistant/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/yourusername/universal-knowledge-assistant/discussions)
+-  **Documentation**: [SETUP_GUIDE.md](SETUP_GUIDE.md)
+-  **Issues**: [GitHub Issues](https://github.com/yourusername/universal-knowledge-assistant/issues)
+-  **Discussions**: [GitHub Discussions](https://github.com/yourusername/universal-knowledge-assistant/discussions)
 
 ---
 
 <div align="center">
 
-**Made with ❤️ for privacy-conscious knowledge workers**
+**Made with  for privacy-conscious knowledge workers**
 
-⭐ **Star this repo** if you find it useful!
+ **Star this repo** if you find it useful!
 
 </div>
 
@@ -378,14 +378,14 @@ See `requirements.txt` for full dependencies:
 
 ```
 llm-assistant/
-├── assistant_core.py          # Core LLM logic
-├── indexed_assistant.py       # Vector search integration
-├── gui_assistant.py           # GUI application
-├── index_codebase.py          # Vector indexing script
-├── config.yaml.example        # Template configuration
-├── requirements.txt           # Python dependencies
-├── assets/                    # GUI assets (logos, icons)
-└── README.md
+ assistant_core.py          # Core LLM logic
+ indexed_assistant.py       # Vector search integration
+ gui_assistant.py           # GUI application
+ index_codebase.py          # Vector indexing script
+ config.yaml.example        # Template configuration
+ requirements.txt           # Python dependencies
+ assets/                    # GUI assets (logos, icons)
+ README.md
 ```
 
 ## License
