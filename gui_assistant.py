@@ -152,6 +152,7 @@ class ThurteaAssistantApp(ctk.CTk):
             nav,
             values=[
                 self.config["models"]["default"],
+                self.config["models"].get("balanced", "qwen2.5-coder:3b"),
                 self.config["models"]["fast"],
             ],
             variable=self.model_var,
