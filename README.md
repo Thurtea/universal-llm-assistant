@@ -17,6 +17,7 @@ A local AI coding assistant powered by Ollama with vector-based semantic search 
 2. **Ollama** running locally with Qwen models:
    ```bash
    ollama pull qwen2.5-coder:7b
+   ollama pull qwen2.5-coder:3b
    ollama pull qwen2.5-coder:1.5b
    ```
 3. **Required Python packages** (see Installation)
@@ -103,7 +104,7 @@ This creates a `chroma_db/` directory with semantic embeddings of your codebase.
 - **Keyboard Shortcuts**: Ctrl+C (copy), Ctrl+A (select all), Ctrl+Enter (send)
 - **Right-Click Menus**: Context menus with copy and select options
 - **File Context**: Add specific files for targeted assistance
-- **Model Switching**: Toggle between default and fast models
+- **Model Switching**: Toggle between three models (7b/3b/1.5b) based on complexity
 - **Status Feedback**: Real-time connection and processing status
 
 ## Configuration
@@ -112,8 +113,9 @@ Edit `config.yaml` to customize:
 
 ```yaml
 models:
-  default: "qwen2.5-coder:7b"    # More capable, slower
-  fast: "qwen2.5-coder:1.5b"     # Faster responses
+  default: "qwen2.5-coder:7b"      # Most capable, slower (~4GB RAM)
+  balanced: "qwen2.5-coder:3b"     # Sweet spot for daily use (~2GB RAM)
+  fast: "qwen2.5-coder:1.5b"       # Lightweight, quick responses (~1GB RAM)
 
 codebase:
   path: "../your-project"         # Path to your code
