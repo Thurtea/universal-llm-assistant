@@ -16,6 +16,12 @@ chroma_db/
 # User configuration (contains local paths)
 config.yaml
 
+# Setup completion marker
+.setup_complete
+
+# Old deprecated files
+generate_logo.py
+
 # IDE
 .vscode/
 .idea/
