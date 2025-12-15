@@ -1,0 +1,25 @@
+# LLM Assistant Configuration Template
+# Copy this file to 'config.yaml' and update paths for your system
+
+assistant:
+  name: "AetherMUD Assistant"
+  version: "0.1.0"
+  
+models:
+  default: "qwen2.5-coder:7b"
+  fast: "qwen2.5-coder:1.5b"
+  
+codebase:
+  # Path to your codebase (relative or absolute)
+  # This is the code that will be indexed and searchable
+  path: "../aethermud-code"  # UPDATE THIS PATH
+  sync_on_start: true
+  
+context:
+  max_lines_per_file: 300
+  context_window: 16384
+  
+ollama:
+  # Ollama server endpoint
+  host: "http://localhost:11434"
+  timeout: 60
