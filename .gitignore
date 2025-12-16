@@ -1,3 +1,9 @@
+# Internal asset documentation
+assets/config-yaml-patch/
+assets/DOCUMENT-INDEX/
+assets/FLOWCHARTS-DECISION-TREES/
+assets/READY-TO-EXECUTE/
+assets/SETUP-FLOW-VISUAL/
 # Python
 __pycache__/
 *.pyc
