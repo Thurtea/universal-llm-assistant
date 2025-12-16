@@ -37,3 +37,12 @@ Thumbs.db
 # Testing artifacts
 test_*.py
 validate_*.py
+
+# Internal documentation (development only)
+docs_internal/
+assets/patch-*/
+assets/BEFORE-AFTER-*/
+assets/*-CHECKLIST/
+assets/DELIVERY-*/
+assets/QUICK-*/
+assets/00-*/
