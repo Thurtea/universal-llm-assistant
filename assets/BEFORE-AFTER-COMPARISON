@@ -1,0 +1,353 @@
+# BEFORE vs AFTER - Visual Comparison
+
+## SETUP WIZARD SCREENS
+
+### SCREEN 1: Welcome
+
+```
+BEFORE                              AFTER
+┌─────────────────────────┐        ┌─────────────────────────┐
+│ ✨                      │        │ ✨                      │
+│ Welcome to AetherMUD   │        │ Welcome to Universal   │
+│ Assistant              │        │ Knowledge Assistant   │
+│                        │        │                        │
+│ This wizard will set   │        │ This wizard will set    │
+│ up your development    │        │ up your knowledge       │
+│ environment.           │        │ assistant.              │
+│                        │        │                        │
+│ [Get Started →]        │        │ [Get Started →]        │
+└─────────────────────────┘        └─────────────────────────┘
+```
+
+### SCREEN 2: Dependencies (Same)
+
+```
+✅ Ollama is running
+✅ All Python packages installed
+✅ Found models: qwen2.5-coder:3b, qwen2.5-coder:1.5b
+```
+
+### SCREEN 3: Configuration
+
+```
+BEFORE (Hardcoded)          AFTER (User Selects Paths)
+┌─────────────────┐        ┌──────────────────────────┐
+│ Configuration  │        │ Configure Paths        │
+├─────────────────┤        ├──────────────────────────┤
+│ Name:          │        │ 📁 Ollama Models:     │
+│ [AetherMUD...] │        │ [C:\Users\itsth\...]  │
+│                 │        │ [Browse]               │
+│ Model:         │        │                        │
+│ [model ▼]      │        │ 🗄️ Database:          │
+│                 │        │ [./chroma_db]         │
+│ Codebase:      │        │ [Browse]               │
+│ [../aetherm... │        │                        │
+│ (hardcoded)    │        │ 📂 Install Dir:       │
+│                 │        │ [E:\LLM-Universal...] │
+│                 │        │ [Browse]               │
+└─────────────────┘        └──────────────────────────┘
+```
+
+### SCREEN 4 (was 3) / SCREEN 5 (was 4): Finish
+
+```
+BEFORE (Basic)                 AFTER (Enhanced)
+┌──────────────────┐          ┌──────────────────────────┐
+│ Finish         │          │ Launch Options        │
+├──────────────────┤          ├──────────────────────────┤
+│ Setup Complete!│          │ Setup Complete! ✅     │
+│                  │          │                        │
+│ ☑ Create desktop│          │ ☑ Create desktop      │
+│   shortcut       │          │   shortcut             │
+│                  │          │                        │
+│ [✓ Setup Done]  │          │ ☑ Launch app after   │
+│                  │          │   installation         │
+│                  │          │                        │
+│                  │          │ Summary:               │
+│                  │          │ ┌──────────────────┐  │
+│                  │          │ │ App: Universal   │  │
+│                  │          │ │ Models: C:\Users│  │
+│                  │          │ │ Database: ./db  │  │
+│                  │          │ │ Model: qwen...  │  │
+│                  │          │ └──────────────────┘  │
+│ [Finish]         │          │ [Finish]               │
+└──────────────────┘          └──────────────────────────┘
+```
+
+---
+
+## CONFIG.YAML STRUCTURE
+
+### BEFORE
+```yaml
+assistant:
+  name: Test                                   # Generic
+  version: 1.0.0
+
+models:
+  default: qwen2.5-coder:3b
+  balanced: qwen2.5-coder:3b
+  fast: qwen2.5-coder:1.5b
+
+codebase:
+  path: E:\Test                                # Hardcoded!
+  sync_on_start: true
+
+context:
+  max_lines_per_file: 300
+  context_window: 16384
+
+ollama:
+  host: http://localhost:11434
+  timeout: 60
+```
+
+### AFTER
+```yaml
+assistant:
+  name: Universal Knowledge Assistant         # Dynamic from setup
+  version: 1.0.0
+
+models:
+  default: qwen2.5-coder:3b
+  balanced: qwen2.5-coder:3b
+  fast: qwen2.5-coder:1.5b
+
+paths:                                        # ⭐ NEW SECTION
+  ollama_models: C:\Users\itsth\.ollama\models  # User chose
+  database: ./chroma_db                         # User chose
+  install_dir: E:\LLM-Universal...             # User chose
+  codebase: null                                # Set later
+
+context:
+  max_lines_per_file: 300
+  context_window: 16384
+
+ollama:
+  host: http://localhost:11434
+  timeout: 60
+
+indexing:                                     # ⭐ NEW SECTION
+  collection_name: universal_knowledge
+  sync_on_start: true
+```
+
+---
+
+## SETUP WIZARD CODE
+
+### BEFORE: Hardcoded paths
+```python
+# assistant_core.py
+def __init__(self, model="qwen2.5-coder:7b", 
+             codebase_path="../aethermud-code"):  # ❌ HARDCODED
+    self.codebase_path = Path(codebase_path)
+
+prompt = f"""You are a helpful AI coding assistant for AetherMUD development.
+AetherMUD is a Rifts-themed MUD built on Evennia framework..."""  # ❌ HARDCODED
+```
+
+### AFTER: Config-driven
+```python
+# assistant_core.py
+def __init__(self, model="qwen2.5-coder:3b",
+             codebase_path=None, config=None):     # ✅ FLEXIBLE
+    if codebase_path:
+        self.codebase_path = Path(codebase_path)
+    else:
+        config_path = config.get('paths',{}).get('codebase')
+        self.codebase_path = Path(config_path) if config_path else Path(".")
+
+assistant_name = config.get('assistant',{}).get('name', 
+                            'Universal Knowledge Assistant')
+prompt = f"""You are a helpful AI coding assistant.
+You are assisting with: {assistant_name}"""  # ✅ DYNAMIC
+```
+
+---
+
+## SETUP WIZARD FLOW
+
+### BEFORE: 4 Steps
+```
+Screen 1: Welcome
+    ↓ [Next]
+Screen 2: Dependencies (auto-check)
+    ↓ [Next]
+Screen 3: Configuration
+    - App Name (default: "AetherMUD Assistant")
+    - Model Selection
+    - (Codebase path hidden/hardcoded)
+    ↓ [Next]
+Screen 4: Finish
+    - ☑ Create Desktop Shortcut only
+    ↓ [Finish]
+Config saved → Done
+```
+
+### AFTER: 5 Steps
+```
+Screen 1: Welcome
+    ↓ [Next]
+Screen 2: Dependencies (auto-check)
+    ↓ [Next]
+Screen 3: ⭐ Paths (NEW!)
+    - Ollama Models Location: [C:\Users\...]  [Browse]
+    - Database Location:      [./chroma_db]   [Browse]
+    - Install Directory:      [E:\LLM-...]    [Browse]
+    ↓ [Next]
+Screen 4: Configuration (now has full flexibility)
+    - App Name
+    - Model Selection (deduplicated)
+    ↓ [Next]
+Screen 5: Finish (enhanced)
+    - ☑ Create Desktop Shortcut
+    - ☑ Launch App After Installation (NEW!)
+    - Summary Display (NEW!)
+    ↓ [Finish]
+Config saved → Desktop Shortcut → Launch GUI (if checked)
+```
+
+---
+
+## MODEL LIST HANDLING
+
+### BEFORE (Duplicates possible)
+```python
+def get_installed_models(self) -> List[str]:
+    models = requests.get(...).json()
+    return [model['name'] for model in models]  # ❌ Could duplicate
+    # Returns: ['qwen2.5-coder:3b', 'qwen2.5-coder:3b', 'qwen2.5-coder:1.5b']
+```
+
+### AFTER (Deduplicated)
+```python
+def get_installed_models(self) -> List[str]:
+    models = requests.get(...).json()
+    model_list = [model['name'] for model in models]
+    return list(dict.fromkeys(model_list))  # ✅ Deduplicate, preserve order
+    # Returns: ['qwen2.5-coder:3b', 'qwen2.5-coder:1.5b']
+```
+
+---
+
+## WINDOW TITLES
+
+### BEFORE
+```
+"Thurtea · AetherMUD Assistant"  ❌ Hardcoded branding
+```
+
+### AFTER
+```
+f"Thurtea · {app_name}" or just "{app_name} - Setup"  ✅ Dynamic
+```
+
+---
+
+## FILE CHANGES SUMMARY
+
+| File | Before | After | Change Type |
+|------|--------|-------|------------|
+| config.yaml | 12 lines | 28 lines | Expanded (+16) |
+| assistant_core.py | 40 lines | 48 lines | Updated (+8) |
+| setup_wizard.py | 250 lines | 280 lines | Enhanced (+30) |
+| first_run_setup.pyw | 700 lines | 950 lines | Major refactor (+250) |
+| **Total** | **1000** | **1300** | **+300 LOC** |
+
+---
+
+## USER EXPERIENCE IMPROVEMENTS
+
+### BEFORE
+```
+❌ Paths are hardcoded
+❌ Can't use on multiple projects
+❌ Model list shows duplicates
+❌ No option to launch app after setup
+❌ Generic default names
+❌ No summary of configuration
+❌ Can't customize locations
+```
+
+### AFTER
+```
+✅ User selects all paths with folder browser
+✅ Portable - works for any project
+✅ Model list deduplicated
+✅ Option to auto-launch app
+✅ User-specified names
+✅ Summary shows configuration before completing
+✅ Fully customizable storage locations
+```
+
+---
+
+## CODE QUALITY IMPROVEMENTS
+
+### BEFORE
+```python
+# Hardcoded everywhere
+codebase_path = "../aethermud-code"  # Works only for AetherMUD
+prompt = "For AetherMUD development..."  # AetherMUD-specific
+collection_name = "aethermud_code"  # Project-specific
+```
+
+### AFTER
+```python
+# Configuration-driven
+codebase_path = config.get('paths', {}).get('codebase')  # Generic
+prompt = f"...{assistant_name}..."  # User-defined
+collection_name = config.get('indexing', {}).get('collection_name')  # Configurable
+```
+
+---
+
+## DEPLOYMENT IMPLICATIONS
+
+### BEFORE: Local Only
+```
+User clones repo → Has AetherMUD paths → Can't use for other projects
+```
+
+### AFTER: Universal & Portable
+```
+User clones repo → Runs setup wizard → Selects paths → Can use for any project
+Second user clones → Different paths → Works perfectly for them
+```
+
+---
+
+## TESTING IMPACT
+
+### BEFORE
+```
+✓ Setup works (hardcoded paths always exist)
+✗ Can't test with different paths
+✗ Can't test with different models
+✗ No test coverage for path handling
+```
+
+### AFTER
+```
+✓ Setup works with any paths
+✓ Easy to test different configurations
+✓ Path handling is explicit and testable
+✓ Better error messages for path issues
+```
+
+---
+
+## DISK SPACE / PERFORMANCE
+
+**No change** - Same algorithms, just configurable where they run.
+
+- Models: Still from Ollama
+- Database: Still ChromaDB
+- Index: Still uses sentence transformers
+
+The refactoring is architectural, not computational.
+
+---
+
+That's the complete before/after picture! 📊

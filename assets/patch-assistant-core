@@ -1,0 +1,81 @@
+# PATCH FOR: assistant_core.py
+# Replace the entire __init__ method and add support for configurable paths
+
+LOCATION: Lines 9-18 (the __init__ method)
+
+OLD:
+```python
+def __init__(
+    self,
+    model: str = "qwen2.5-coder:7b",
+    codebase_path: str = "../aethermud-code",
+    context_window: int = 16384
+):
+    self.model = model
+    self.codebase_path = Path(codebase_path)
+    self.context_window = context_window
+    self.conversation_history = []
+    self.loaded_files = {}
+```
+
+NEW:
+```python
+def __init__(
+    self,
+    model: str = "qwen2.5-coder:3b",
+    codebase_path: Optional[str] = None,
+    context_window: int = 16384,
+    config: Optional[Dict] = None
+):
+    self.model = model
+    self.config = config or {}
+    
+    # Use codebase_path if provided, otherwise try config
+    if codebase_path:
+        self.codebase_path = Path(codebase_path)
+    else:
+        config_path = self.config.get('paths', {}).get('codebase')
+        self.codebase_path = Path(config_path) if config_path else Path(".")
+    
+    self.context_window = context_window
+    self.conversation_history = []
+    self.loaded_files = {}
+```
+
+---
+
+LOCATION: Lines 29-38 (the query method prompt)
+
+OLD:
+```python
+prompt = f"""You are a helpful AI coding assistant for AetherMUD development.
+
+AetherMUD is a Rifts-themed MUD built on Evennia framework in Python.
+
+Context files:
+
+{context}
+
+Question: {question}
+
+Provide a clear, code-focused answer. Reference specific lines when relevant."""
+```
+
+NEW:
+```python
+# Get assistant name from config or use default
+assistant_name = self.config.get('assistant', {}).get('name', 'Universal Knowledge Assistant')
+
+prompt = f"""You are a helpful AI coding assistant.
+
+You are assisting with: {assistant_name}
+
+Context files:
+
+{context}
+
+Question: {question}
+
+Provide a clear, code-focused answer. Reference specific lines when relevant."""
+```
+

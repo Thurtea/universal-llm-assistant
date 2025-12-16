@@ -1,0 +1,351 @@
+# EXECUTION CHECKLIST - Print This! 📋
+# Date Started: _______________
+# Date Completed: _______________
+
+---
+
+## PHASE 1: PREPARATION (5 min)
+
+- [ ] Read: **00-START-HERE.md** (orientation)
+- [ ] Read: **BEFORE-AFTER-COMPARISON.md** (understand changes)
+- [ ] Read: **SETUP-FLOW-VISUAL.md** (see new flow)
+- [ ] **BACKUP** current installation:
+  ```
+  Copy-Item E:\LLM-Universal Knowledge Assistant\universal-knowledge-assistant `
+    -Destination E:\LLM-Universal Knowledge Assistant\universal-knowledge-assistant.backup-pre-patch -Recurse
+  ```
+- [ ] Verify backup completed: ✓ See `.backup-pre-patch` folder
+
+---
+
+## PHASE 2: PATCH #1 - config.yaml (2 min)
+
+**File:** `E:\LLM-Universal Knowledge Assistant\universal-knowledge-assistant\config.yaml`
+
+- [ ] Open file in VS Code
+- [ ] Select all (Ctrl+A)
+- [ ] Delete all content
+- [ ] Copy entire content from **config-yaml-patch**
+- [ ] Paste into file (Ctrl+V)
+- [ ] Save (Ctrl+S)
+- [ ] Verify: 
+  - [ ] Lines ~28 (should have `paths:` section)
+  - [ ] No "AetherMUD" text anywhere
+  - [ ] Has `collection_name: universal_knowledge`
+
+---
+
+## PHASE 3: PATCH #2 - assistant_core.py (5 min)
+
+**File:** `E:\LLM-Universal Knowledge Assistant\universal-knowledge-assistant\assistant_core.py`
+
+**Step 1: Update imports**
+- [ ] Line 1-10: Imports section
+- [ ] Verify imports include:
+  - [ ] `from typing import List, Dict, Optional`
+
+**Step 2: Replace __init__ method**
+- [ ] Find: Lines ~9-18 (def __init__ method)
+- [ ] Replace with content from **patch-assistant-core** section 2A
+- [ ] Verify: Method now accepts `config: Optional[Dict] = None`
+
+**Step 3: Replace query() prompt**
+- [ ] Find: Lines ~29-38 (prompt = f""")
+- [ ] Replace with content from **patch-assistant-core** section 2C
+- [ ] Verify: Prompt reads `assistant_name` from config
+
+**Step 4: Syntax check**
+- [ ] Open terminal
+- [ ] Run: `python -m py_compile assistant_core.py`
+- [ ] Result should be silent (no errors)
+
+---
+
+## PHASE 4: PATCH #3 - setup_wizard.py (10 min)
+
+**File:** `E:\LLM-Universal Knowledge Assistant\universal-knowledge-assistant\setup_wizard.py`
+
+**Step 1: Fix get_installed_models() dedup**
+- [ ] Find: `def get_installed_models(self)` (~line 87)
+- [ ] Replace return statement with:
+  ```python
+  models = [model['name'] for model in data.get('models', [])]
+  return list(dict.fromkeys(models))  # Deduplicate
+  ```
+
+**Step 2: Update create_config() signature**
+- [ ] Find: `def create_config(self, app_name:` (~line 145)
+- [ ] Replace method signature with new one from **patch-setup-wizard** section 3B
+- [ ] Replace config dict creation with new one
+
+**Step 3: Add resolve_paths() method**
+- [ ] Find: End of `mark_setup_complete()` method (~line 75)
+- [ ] Add new `resolve_paths()` method from **patch-setup-wizard** section 3C
+
+**Step 4: Syntax check**
+- [ ] Run: `python -m py_compile setup_wizard.py`
+- [ ] Should be silent (no errors)
+
+---
+
+## PHASE 5: PATCH #4 - first_run_setup.pyw (30-40 min) ⚠️ LARGEST
+
+**File:** `E:\LLM-Universal Knowledge Assistant\universal-knowledge-assistant\first_run_setup.pyw`
+
+This is complex. **Follow IMPLEMENTATION-CHECKLIST section-by-section**, not this quick version.
+
+**Quick Summary:**
+1. [ ] Add instance variables (~line 90)
+2. [ ] Update screen list (~line 155)
+3. [ ] Add `_create_paths_screen()` method (new)
+4. [ ] Update screen titles
+5. [ ] Replace `_create_finish_screen()` method completely
+6. [ ] Add `_browse_folder()` helper
+7. [ ] Add `_update_finish_summary()` helper
+8. [ ] Update `_go_next()` logic
+9. [ ] Replace `_on_finish()` method
+10. [ ] Find/Replace all "AetherMUD" and "Thurtea · AetherMUD" references
+11. [ ] Syntax check: `python -m py_compile first_run_setup.pyw`
+
+**For this file, use detailed guide:** Follow **patch-first-run-setup** section by section
+
+---
+
+## PHASE 6: VALIDATION (15-20 min)
+
+**Step 1: Syntax Check All Files**
+- [ ] `python -m py_compile assistant_core.py`
+- [ ] `python -m py_compile setup_wizard.py`
+- [ ] `python -m py_compile first_run_setup.pyw`
+- [ ] All should complete silently (no errors)
+
+**Step 2: Visual Code Review**
+- [ ] Open each file in VS Code
+- [ ] Scan for red squiggly lines (syntax errors)
+- [ ] Scan for yellow warnings (usually OK)
+- [ ] Check for "TODO" or "FIXME" comments
+
+**Step 3: Test Setup Wizard UI**
+- [ ] Open PowerShell in the project directory
+- [ ] Run: `python first_run_setup.pyw`
+- [ ] Verify Screen 1 (Welcome):
+  - [ ] Title: "Universal Knowledge Assistant - Setup"
+  - [ ] No "AetherMUD" text
+  - [ ] "Get Started" button works
+- [ ] Verify Screen 2 (Dependencies):
+  - [ ] Shows status for Ollama, packages, models
+  - [ ] Can click buttons if install/download needed
+- [ ] **Verify Screen 3 (Paths) ⭐ NEW:**
+  - [ ] Title shows "Step 3 of 5"
+  - [ ] 3 folder inputs visible
+  - [ ] Models: Shows `C:\Users\<username>\.ollama\models`
+  - [ ] Database: Shows `./chroma_db`
+  - [ ] Install Dir: Shows current directory
+  - [ ] All 3 "Browse" buttons work (folder picker appears)
+- [ ] Verify Screen 4 (Configuration):
+  - [ ] Can enter app name
+  - [ ] Model dropdown shows (count items, should be **NO DUPLICATES**)
+- [ ] Verify Screen 5 (Finish):
+  - [ ] Title shows "Step 5 of 5"
+  - [ ] ☑ Create desktop shortcut (checked)
+  - [ ] ☑ Launch app after installation (checked)
+  - [ ] Summary box shows configuration
+- [ ] **IMPORTANT - Don't complete setup yet!** Close wizard
+
+**Step 4: Test Configuration Save**
+- [ ] Delete `.setup_complete` file (forces rerun)
+- [ ] Run setup wizard again
+- [ ] Configure:
+  - [ ] App name: "Test Assistant"
+  - [ ] Select a model
+  - [ ] For paths, use defaults (or choose different)
+  - [ ] **UNCHECK** "Launch app after installation" (for first test)
+  - [ ] Click Finish
+- [ ] Verify:
+  - [ ] No errors thrown
+  - [ ] config.yaml created/updated
+  - [ ] Can open config.yaml and see:
+    - [ ] `name: Test Assistant`
+    - [ ] Selected model
+    - [ ] All three paths populated
+    - [ ] `collection_name: universal_knowledge`
+
+**Step 5: Extended Testing**
+- [ ] Delete `.setup_complete` again
+- [ ] Run setup wizard
+- [ ] Complete setup with different paths:
+  - [ ] Try browsing to different folders
+  - [ ] Save with custom paths
+  - [ ] Verify config.yaml shows custom paths
+- [ ] Delete `.setup_complete`
+- [ ] Run setup with "Launch app" checked:
+  - [ ] After finishing, GUI should open automatically
+  - [ ] GUI should show correct title from config
+  - [ ] Close GUI
+
+---
+
+## PHASE 7: VERIFICATION CHECKLIST ✅
+
+### Code Quality
+- [ ] No red squiggles in VS Code
+- [ ] All Python files syntax-valid
+- [ ] No hardcoded "AetherMUD" references (search: 0 results)
+- [ ] No hardcoded "Thurtea · AetherMUD" references (search: 0 results)
+- [ ] No hardcoded paths except in defaults/comments
+
+### Setup Wizard Functionality
+- [ ] Wizard has 5 screens (not 4, not 6)
+- [ ] Welcome screen appears
+- [ ] Dependencies screen checks services
+- [ ] **Paths screen has 3 folder inputs**
+- [ ] Configuration screen shows models **without duplicates**
+- [ ] Finish screen has **2 checkboxes**
+- [ ] Summary display shows configuration
+
+### File System
+- [ ] config.yaml created with `paths:` section
+- [ ] config.yaml has `ollama_models`, `database`, `install_dir` keys
+- [ ] `.setup_complete` marker created
+- [ ] Desktop shortcut created (if checked)
+- [ ] No errors in PowerShell output
+
+### Configuration
+- [ ] Paths section populated correctly
+- [ ] Assistant name saved
+- [ ] Model selection saved
+- [ ] Collection name is `universal_knowledge`
+
+---
+
+## PHASE 8: TROUBLESHOOTING (If Issues)
+
+**Setup wizard won't launch:**
+- [ ] Check Python installed: `python --version`
+- [ ] Check dependencies: `pip list | grep customtkinter`
+- [ ] Check for import errors - run with error output visible
+
+**Paths screen missing:**
+- [ ] Verify screen list updated (should have 5 items)
+- [ ] Verify `_create_paths_screen()` method added
+- [ ] Verify screen numbers in show/go_next logic updated
+
+**Model dropdown shows duplicates:**
+- [ ] Verify `list(dict.fromkeys())` in `get_installed_models()`
+- [ ] Verify dropdown values set from deduplicated list
+- [ ] Check if Ollama API returning duplicates
+
+**Folder browser not working:**
+- [ ] Verify `from tkinter import filedialog` imported
+- [ ] Verify `_browse_folder()` method exists
+- [ ] Test in Python REPL:
+  ```python
+  from tkinter import filedialog
+  filedialog.askdirectory()  # Should open folder picker
+  ```
+
+**Config not saving:**
+- [ ] Verify `_on_finish()` calls `backend.create_config()`
+- [ ] Verify all path variables passed to `create_config()`
+- [ ] Check config.yaml file permissions (should be writable)
+- [ ] Look for error messages in PowerShell
+
+**Launch app not working:**
+- [ ] Verify `launch_main_app()` method in setup_wizard.py
+- [ ] Verify `gui_assistant.py` exists and is executable
+- [ ] Check PowerShell for error output
+
+---
+
+## PHASE 9: ROLLBACK (If Needed)
+
+If something is badly broken:
+
+```powershell
+# Close any running instances
+Stop-Process -Name python -ErrorAction SilentlyContinue
+
+# Restore from backup
+Remove-Item E:\LLM-Universal Knowledge Assistant\universal-knowledge-assistant -Recurse -Force
+Move-Item E:\LLM-Universal Knowledge Assistant\universal-knowledge-assistant.backup-pre-patch `
+  -Destination E:\LLM-Universal Knowledge Assistant\universal-knowledge-assistant
+
+# Verify restore
+ls E:\LLM-Universal Knowledge Assistant\universal-knowledge-assistant
+```
+
+---
+
+## PHASE 10: COMPLETION ✨
+
+- [ ] All phases completed
+- [ ] All validation checks passed
+- [ ] Setup wizard fully functional
+- [ ] Able to configure paths
+- [ ] Models not duplicated
+- [ ] Can launch after setup
+- [ ] config.yaml saves correctly
+- [ ] Backup kept (can delete later)
+
+---
+
+## TIME LOG
+
+| Phase | Estimated | Actual | Status |
+|-------|-----------|--------|--------|
+| Prep | 5 min | ___ min | ⏳ |
+| Patch 1 | 2 min | ___ min | ⏳ |
+| Patch 2 | 5 min | ___ min | ⏳ |
+| Patch 3 | 10 min | ___ min | ⏳ |
+| Patch 4 | 30 min | ___ min | ⏳ |
+| Validation | 20 min | ___ min | ⏳ |
+| Testing | 10 min | ___ min | ⏳ |
+| **TOTAL** | **~90 min** | **___ min** | ⏳ |
+
+---
+
+## NOTES & OBSERVATIONS
+
+(Use this space to track issues, solutions, discoveries)
+
+```
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+```
+
+---
+
+## NEXT STEPS (After This Completes)
+
+- [ ] Update `gui_assistant.py` to read title from config
+- [ ] Update `indexed_assistant.py` to use config collection name
+- [ ] Update `index_codebase.py` to use config codebase path
+- [ ] Create `.gitignore`
+- [ ] Add README.md
+- [ ] Prepare for GitHub publication
+
+---
+
+## CONTACT / RESOURCES
+
+- **Confused?** Check: **IMPLEMENTATION-CHECKLIST.md**
+- **Need visuals?** Check: **SETUP-FLOW-VISUAL.md**
+- **Want snippets?** Check: **QUICK-PATCH-REFERENCE.md**
+- **Before/after?** Check: **BEFORE-AFTER-COMPARISON.md**
+
+---
+
+**Start Date:** _______________  
+**End Date:** _______________  
+**Status:** ⏳ In Progress
+
+---
+
+Good luck! 🚀 You've got this!

@@ -58,7 +58,9 @@ class SetupWizardBackend:
             response = requests.get(f"{self.ollama_host}/api/tags", timeout=3)
             if response.status_code == 200:
                 data = response.json()
-                return [model['name'] for model in data.get('models', [])]
+                models = [model.get('name') for model in data.get('models', []) if model.get('name')]
+                # Preserve order and remove duplicates
+                return list(dict.fromkeys(models))
             return []
         except Exception:
             return []
@@ -160,25 +162,63 @@ class SetupWizardBackend:
     def get_recommended_model(self) -> str:
         """Get the recommended model name."""
         return "qwen2.5-coder:3b"
+
+    def resolve_paths(self, models_location: Optional[str], database_location: Optional[str], install_dir: Optional[str]) -> Tuple[str, str, str]:
+        """
+        Normalize and fill defaults for paths. Expands env vars and resolves relative paths.
+        Auto-detect common Ollama models path when `models_location` is None.
+        """
+        # Resolve models_location
+        if models_location:
+            ml = os.path.expandvars(models_location)
+            ml = os.path.expanduser(ml)
+        else:
+            # Auto-detect default Ollama models path on Windows / Unix
+            home = os.path.expanduser("~")
+            default_win = os.path.join(os.environ.get("USERPROFILE", home), ".ollama", "models")
+            default_unix = os.path.join(home, ".ollama", "models")
+            ml = default_win if os.name == 'nt' else default_unix
+
+        # Resolve database_location
+        if database_location:
+            db = os.path.expandvars(database_location)
+            db = os.path.expanduser(db)
+        else:
+            db = os.path.join(os.getcwd(), "chroma_db")
+
+        # Resolve install_dir
+        if install_dir:
+            inst = os.path.expandvars(install_dir)
+            inst = os.path.expanduser(inst)
+        else:
+            inst = os.getcwd()
+
+        # Make paths absolute
+        ml = os.path.abspath(ml)
+        db = os.path.abspath(db)
+        inst = os.path.abspath(inst)
+        return ml, db, inst
     
     # ========== CONFIGURATION ==========
     
     def create_config(
         self,
         app_name: str,
-        knowledge_base_path: str,
-        selected_model: str
+        selected_model: str,
+        models_location: Optional[str] = None,
+        database_location: Optional[str] = None,
+        install_dir: Optional[str] = None,
+        codebase_path: Optional[str] = None
     ) -> Tuple[bool, str]:
         """
         Create config.yaml from user inputs.
         Returns: (success, message)
         """
         try:
-            # Normalize the path
-            kb_path = Path(knowledge_base_path).resolve()
-            
-            # Create config structure
-            config = {
+            # Resolve and normalize paths
+            ml, db, inst = self.resolve_paths(models_location, database_location, install_dir)
+
+            cfg = {
                 'assistant': {
                     'name': app_name,
                     'version': '1.0.0'
@@ -188,8 +228,13 @@ class SetupWizardBackend:
                     'balanced': 'qwen2.5-coder:3b',
                     'fast': 'qwen2.5-coder:1.5b'
                 },
+                'paths': {
+                    'models_location': ml,
+                    'database_location': db,
+                    'install_dir': inst
+                },
                 'codebase': {
-                    'path': str(kb_path),
+                    'path': codebase_path or '../aethermud-code',
                     'sync_on_start': True
                 },
                 'context': {
@@ -199,14 +244,18 @@ class SetupWizardBackend:
                 'ollama': {
                     'host': self.ollama_host,
                     'timeout': 60
+                },
+                'indexing': {
+                    'collection_name': 'universal_knowledge',
+                    'sync_on_start': True
                 }
             }
-            
-            # Write config file
-            with open(self.config_path, 'w', encoding='utf-8') as f:
-                yaml.dump(config, f, default_flow_style=False, sort_keys=False)
-            
-            return True, "Configuration saved successfully"
+
+            # Write YAML
+            yaml_path = self.config_path
+            with open(yaml_path, 'w', encoding='utf-8') as f:
+                yaml.safe_dump(cfg, f, sort_keys=False)
+            return True, f"Wrote config to {yaml_path}"
         except Exception as e:
             return False, f"Error creating config: {str(e)}"
     

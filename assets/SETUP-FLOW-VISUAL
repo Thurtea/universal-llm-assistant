@@ -1,0 +1,240 @@
+# Universal Knowledge Assistant - Setup Wizard Flow (UPDATED)
+
+## BEFORE (AetherMUD-Specific)
+```
+┌─────────────────────────────────────┐
+│  Screen 1: Welcome                  │
+│  "Welcome to AetherMUD Assistant"   │
+└─────────┬───────────────────────────┘
+          │ Next
+          ▼
+┌─────────────────────────────────────┐
+│  Screen 2: Dependencies             │
+│  ✓ Check Ollama                     │
+│  ✓ Check Python packages            │
+│  ✓ Show available models            │
+└─────────┬───────────────────────────┘
+          │ Next
+          ▼
+┌─────────────────────────────────────┐
+│  Screen 3: Configuration            │
+│  - App name: [AetherMUD Assistant]  │
+│  - Model: [dropdown]                │
+│  - Codebase: [hardcoded path]       │
+└─────────┬───────────────────────────┘
+          │ Next
+          ▼
+┌─────────────────────────────────────┐
+│  Screen 4: Finish                   │
+│  ☑ Create desktop shortcut          │
+│  [✓ Setup Complete!]                │
+└─────────────────────────────────────┘
+```
+
+---
+
+## AFTER (Configurable Universal)
+```
+┌─────────────────────────────────────┐
+│  Screen 1: Welcome                  │
+│  "Welcome to Universal Knowledge    │
+│   Assistant"                        │
+│  [Get Started →]                    │
+└─────────┬───────────────────────────┘
+          │ Next
+          ▼
+┌─────────────────────────────────────┐
+│  Screen 2: Dependencies             │
+│  ⏳ Checking Ollama...              │
+│  ✅ Ollama is running               │
+│  ⏳ Checking Python packages...     │
+│  ✅ All packages installed          │
+│  ⏳ Detecting Ollama models...      │
+│  ✅ Found: qwen2.5-coder:3b,       │
+│     qwen2.5-coder:1.5b             │
+└─────────┬───────────────────────────┘
+          │ Next
+          ▼
+┌─────────────────────────────────────┐
+│  Screen 3: Configure Paths ⭐ NEW   │
+│                                     │
+│  📁 Ollama Models Location:         │
+│  [C:\Users\itsth\.ollama\models]   │
+│  [Browse]                           │
+│                                     │
+│  🗄️ Vector Database Location:       │
+│  [./chroma_db]                      │
+│  [Browse]                           │
+│                                     │
+│  📂 Application Installation Dir:   │
+│  [E:\LLM-Universal Knowledge...]   │
+│  [Browse]                           │
+└─────────┬───────────────────────────┘
+          │ Next
+          ▼
+┌─────────────────────────────────────┐
+│  Screen 4: Configuration            │
+│  Assistant Name:                    │
+│  [Universal Knowledge Assistant   ]  │
+│                                     │
+│  Model Selection:                   │
+│  [qwen2.5-coder:3b ▼] (deduplicated)│
+└─────────┬───────────────────────────┘
+          │ Next
+          ▼
+┌─────────────────────────────────────┐
+│  Screen 5: Launch Options ⭐ UPDATED│
+│                                     │
+│  Setup Complete! ✅                 │
+│                                     │
+│  ☑ Create desktop shortcut          │
+│  ☑ Launch app after installation    │
+│                                     │
+│  Configuration Summary:             │
+│  ┌─────────────────────────────┐    │
+│  │ Assistant: Universal Know...│    │
+│  │ Models Dir: C:\Users\...   │    │
+│  │ Database: ./chroma_db      │    │
+│  │ Install Dir: E:\LLM-...    │    │
+│  │ Model: qwen2.5-coder:3b   │    │
+│  └─────────────────────────────┘    │
+│  [Finish]                           │
+└─────────────────────────────────────┘
+        │
+        ├─→ If ☑ Create shortcut: Creates desktop icon
+        └─→ If ☑ Launch app: Opens GUI automatically
+```
+
+---
+
+## KEY IMPROVEMENTS
+
+✅ **Configurability:**
+- Users choose where models are stored
+- Choose where database/indexes go
+- Choose where app is installed
+- All saved to config.yaml for portability
+
+✅ **User-Friendly:**
+- Browse buttons instead of manual path entry
+- Defaults provided (Windows .ollama/models)
+- Summary shows all choices before completing
+- Can uncheck options they don't want
+
+✅ **No More Hardcoding:**
+- Remove: `codebase_path: E:\LLM-Assistant-Copy`
+- Remove: `assets/favicon_io-AetherMUD` references
+- Remove: "AetherMUD" from all titles/prompts
+- Add: Dynamic config-based names
+
+✅ **Better Onboarding:**
+- Clear 5-step flow
+- Dependency checking prevents surprises
+- Paths configurable upfront
+- Option to launch right after setup
+
+---
+
+## CONFIG.YAML SAVED BY SETUP WIZARD
+
+After completing setup, config.yaml will contain:
+
+```yaml
+assistant:
+  name: Universal Knowledge Assistant  ← User can change this
+  version: 1.0.0
+
+models:
+  default: qwen2.5-coder:3b  ← User selected model
+  balanced: qwen2.5-coder:3b
+  fast: qwen2.5-coder:1.5b
+
+paths:
+  ollama_models: C:\Users\itsth\.ollama\models  ← User chose this
+  database: ./chroma_db                        ← User chose this
+  install_dir: E:\LLM-Universal Knowledge... ← User chose this
+  codebase: null
+
+context:
+  max_lines_per_file: 300
+  context_window: 16384
+
+ollama:
+  host: http://localhost:11434
+  timeout: 60
+
+indexing:
+  collection_name: universal_knowledge
+  sync_on_start: true
+```
+
+---
+
+## SCREEN NAVIGATION
+
+```
+Welcome ← User clicks "Get Started"
+   ↓
+Dependencies ← Automatic checks (2 buttons: Install/Download if needed)
+   ↓
+Paths ← NEW! User picks 3 locations with folder browsers
+   ↓
+Configuration ← User names app + selects model
+   ↓
+Finish ← User reviews summary + checks launch/shortcut options
+   ↓
+Complete ← Config saved, shortcut created, app launched (if checked)
+```
+
+Each screen has [Back] [Next] buttons except Welcome (no Back) and Finish (has [Finish]).
+
+---
+
+## NEW METHODS ADDED TO CODEBASE
+
+### In setup_wizard.py:
+- `resolve_paths()` - Convert relative paths to absolute
+
+### In first_run_setup.pyw:
+- `_create_paths_screen()` - New screen 3 UI
+- `_browse_folder()` - Helper for folder picker
+- `_update_finish_summary()` - Populate summary display
+- Updated `_on_finish()` - Handle new path params + launch option
+
+---
+
+## FILES THAT REFERENCE CONFIG NOW
+
+After patching, these files read from config.yaml:
+
+- **gui_assistant.py** - Should read window title, database path
+- **indexed_assistant.py** - Should use config collection_name, database path
+- **index_codebase.py** - Should use config codebase path
+- **assistant_core.py** - Reads assistant name from config
+
+(These will need updates in next session if needed)
+
+---
+
+## TESTING THE NEW SETUP
+
+**Quick Test:**
+1. Delete .setup_complete file (forces rerun)
+2. Run: `python first_run_setup.pyw`
+3. Click through all 5 screens
+4. Verify each path input appears and Browse works
+5. Select a model, name the app
+6. Uncheck "Launch" for first test (don't want GUI opening yet)
+7. Finish
+8. Check that config.yaml has paths section populated
+
+**Full Integration Test (after other files updated):**
+1. Run setup wizard (create config)
+2. Verify gui_assistant.py reads title from config
+3. Verify index_codebase uses config paths
+4. Try indexing a codebase
+5. Query the index through GUI
+
+---
+
+That's the complete new architecture! 🎯

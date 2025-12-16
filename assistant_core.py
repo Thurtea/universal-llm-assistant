@@ -11,11 +11,17 @@ import json
 class LLMAssistant:
     def __init__(
         self,
-        model: str = "qwen2.5-coder:7b",
+        model: str = None,
         codebase_path: str = "../aethermud-code",
         context_window: int = 16384
     ):
-        self.model = model
+        import yaml
+        from pathlib import Path
+        config_path = Path(__file__).parent / "config.yaml"
+        with open(config_path, "r", encoding="utf-8") as f:
+            self.config = yaml.safe_load(f)
+        self.model = model or self.config.get("models", {}).get("default", "qwen2.5-coder:3b")
+        self.app_name = self.config.get("assistant", {}).get("name", "Universal Knowledge Assistant")
         self.codebase_path = Path(codebase_path)
         self.context_window = context_window
         self.conversation_history = []
@@ -47,15 +53,15 @@ class LLMAssistant:
                 context += f"\n\n=== File: {file_path} ===\n{content}"
         
         # Build prompt
-        prompt = f"""You are a helpful AI coding assistant for AetherMUD development.
-AetherMUD is a Rifts-themed MUD built on Evennia framework in Python.
+        prompt = f"""You are a helpful AI coding assistant for {self.app_name} development.
+    {self.app_name} is a Rifts-themed MUD built on Evennia framework in Python.
 
-Context files:
-{context}
+    Context files:
+    {context}
 
-Question: {question}
+    Question: {question}
 
-Provide a clear, code-focused answer. Reference specific lines when relevant."""
+    Provide a clear, code-focused answer. Reference specific lines when relevant."""
 
         # Query Ollama
         response = ollama.chat(

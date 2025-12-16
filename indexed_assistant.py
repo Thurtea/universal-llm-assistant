@@ -17,10 +17,17 @@ class IndexedAssistant:
         index_path: str = "./chroma_db",
         top_k: int = 3,
     ):
+        import yaml
+        from pathlib import Path
+        config_path = Path(__file__).parent / "config.yaml"
+        with open(config_path, "r", encoding="utf-8") as f:
+            self.config = yaml.safe_load(f)
         self.model = model
         self.top_k = top_k
         self.client = chromadb.PersistentClient(path=index_path)
-        self.collection = self.client.get_collection("aethermud_code")
+        self.collection = self.client.get_collection(
+            self.config.get("indexing", {}).get("collection_name", "universal_knowledge")
+        )
 
     def search_codebase(self, query: str, top_k: Optional[int] = None) -> List[Dict]:
         k = top_k or self.top_k

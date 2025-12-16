@@ -62,8 +62,15 @@ class ThurteaAssistantApp(ctk.CTk):
             )
             print("⚠️ Using direct file access (run index_codebase.py for speed)")
 
+        import yaml
+        from pathlib import Path
+
+        config_path = Path(__file__).parent / "config.yaml"
+        with open(config_path, "r", encoding="utf-8") as f:
+            config = yaml.safe_load(f)
+
         # Window configuration
-        self.title("Thurtea · AetherMUD Assistant")
+        self.title(config.get("assistant", {}).get("name", "Universal Knowledge Assistant"))
         self.geometry("1100x700")
         self.minsize(900, 600)
         self.configure(fg_color=THURTEA_BG)

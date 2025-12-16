@@ -65,6 +65,16 @@ class FirstRunSetupWizard(ctk.CTk):
             'create_shortcut': True,
             'launch_now': True
         }
+        # Path variables with config defaults
+        self.models_path_var = ctk.StringVar(
+            value=self.config_data.get("models_location", "")
+        )
+        self.db_path_var = ctk.StringVar(
+            value=self.config_data.get("database_location", "")
+        )
+        self.install_path_var = ctk.StringVar(
+            value=self.config_data.get("install_dir", "") or str(Path.cwd())
+        )
         
         # Check if reconfigure mode
         self.reconfigure_mode = self.backend.is_setup_complete()
@@ -353,23 +363,25 @@ This wizard will help you set up everything in less than 2 minutes.
             command=self._browse_knowledge_base,
             fg_color=BUTTON_COLOR,
             hover_color=BUTTON_HOVER,
-            text_color=TEXT_COLOR,
-            width=100
+            text_color=TEXT_COLOR
         )
-        kb_browse_btn.grid(row=0, column=1)
-        
-        row += 3
-        
-        # Model Selection
-        model_label = ctk.CTkLabel(
+        # Use deduplicated models from backend
+        models = self.backend.get_installed_models()
+        if not models:
+            models = ["qwen2.5-coder:3b"]
+        models = list(dict.fromkeys(models))
+        self.model_var = ctk.StringVar(value=models[0])
+        self.model_dropdown = ctk.CTkOptionMenu(
             content,
-            text="Model Selection:",
-            font=("Inter", 12, "bold"),
-            text_color=TEXT_COLOR,
-            anchor="w"
-        )
-        model_label.grid(row=row, column=0, pady=(10, 5), sticky="w")
-        
+            variable=self.model_var,
+            values=models,
+                fg_color=BUTTON_COLOR,
+                button_color=BUTTON_COLOR,
+                button_hover_color=BUTTON_HOVER,
+                text_color=TEXT_COLOR
+            )
+        self.model_dropdown.grid(row=row+2, column=0, columnspan=2, pady=(0, 20), sticky="ew")
+
         model_help = ctk.CTkLabel(
             content,
             text="Choose which Ollama model to use for queries",
